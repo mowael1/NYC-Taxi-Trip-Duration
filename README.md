@@ -1,6 +1,6 @@
 # 🗽 New York City Taxi Trip Duration Prediction 🚕
 
-![NYC Taxi Banner](Figures/header.png)
+![NYC Taxi Banner](Figures/header.jpeg)
 
 ## 📌 **Project Overview**
 The goal of this project is to build a `regression model` that accurately predicts the duration of taxi trips in New York City based on historical ride data. This dataset includes pickup and drop-off locations, timestamps, passenger count, and more.

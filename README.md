@@ -1,6 +1,6 @@
 # 🗽 New York City Taxi Trip Duration Prediction 🚕
 
-![NYC Taxi Banner](Figures/header.jpeg)
+  <img src="Figures/header.jpeg" width="100%" />
 
 ## 📌 **Project Overview**
 The goal of this project is to build a `regression model` that accurately predicts the duration of taxi trips in New York City based on historical ride data. This dataset includes pickup and drop-off locations, timestamps, passenger count, and more.
@@ -92,7 +92,7 @@ To ensure high-quality input for model training, the dataset was carefully clean
   newDf = newDf[newDf['log_trip_duraion'] <= mean + 3*std]
   newDf = newDf[newDf['log_trip_duraion'] >= mean - 3*std]
   ```
-  ![NYC Taxi Banner](Figures/5.%20Remove%20Outliers.png)
+  ![NYC Taxi Banner](Figures/5.%20Remove%20outliers.png)
 
 - **Outlier Removal:**
 

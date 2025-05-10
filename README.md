@@ -3,32 +3,41 @@
   <img src="Figures/header.jpeg" width="100%" />
 
 ## 📌 **Project Overview**
-The goal of this project is to build a `regression model` that accurately predicts the duration of taxi trips in New York City based on historical ride data. This dataset includes pickup and drop-off locations, timestamps, passenger count, and more.
+The goal of this project is to predict the duration of taxi trips in New York City using the Kaggle `NYC Taxi Trip Duration Dataset`. Reliable trip-time estimates are essential for ride-hailing services to optimize routing, set dynamic pricing, and provide accurate ETAs to users.
 
-This is an End-to-End ML project covering the entire workflow — from Data Exploration and preprocessing to feature engineering, model training, and evaluation.
+**Objectives:**
+  - Perform thorough data exploration to understand spatiotemporal and passenger-related patterns.
+
+  - Engineer features that capture geographic distance, directionality, and temporal context.
+
+  - Train and compare machine learning models to achieve the lowest possible prediction error.
 
 ## 📂 **Dataset**
-- The dataset comes from `Kaggle` but has been preprocessed for training.  
-- It consists of `1.4 million records`.  
-- The dataset has:
-  - `Pickup timestamps`
-  - `Pickup and dropoff latitude & longitude`
-  - `Passenger count`
-  - `Vendor ID`
-  - `Store and forward flag`
-  - `Trip duration (target variable)`
-- Download data from [here](https://www.kaggle.com/c/nyc-taxi-trip-duration)
-- Features consists of:
-  - `id:` a unique identifier for each trip.
-  - `vendor_id:` a code indicating the provider associated with the trip record.
-  - `pickup_datetime:` date and time when the meter was engaged.
-  - `passenger_count:`  the number of passengers in the vehicle (driver entered value).
-  - `pickup_longitude:` the longitude where the meter was engaged.
-  - `pickup_latitude:` the latitude where the meter was engaged.
-  - `dropoff_longitude:` the longitude where the meter was disengaged.
-  - `dropoff_latitude:` the latitude where the meter was disengaged.
+- Source: Kaggle NYC Taxi Trip Duration competition [Download](https://www.kaggle.com/c/nyc-taxi-trip-duration).
+- The training set contains `1.45 million records` with these core fields:
+
+  - `id`: a unique identifier for each trip.
+  - `vendor_id`: a code indicating the provider associated with the trip record.
+  - `passenger_count`: the number of passengers in the vehicle (driver entered value).
+  - `pickup_datetime`: date and time when the meter was engaged.
+  - `pickup_longitude`: the longitude where the meter was engaged.
+  - `pickup_latitude`: the latitude where the meter was engaged.
+  - `dropoff_longitude`: the longitude where the meter was disengaged.
+  - `dropoff_latitude`: the latitude where the meter was disengaged.
   - `store_and_fwd_flag:` This flag indicates whether the trip record was held in vehicle memory before sending to the vendor because the vehicle did not have a connection to the server, Y = store and forward, N = not a store and forward trip.
   - `trip_duration:` duration of the trip in seconds.
+
+- Preprocessing Steps:
+  - Removed duplicate trip records to ensure data integrity.
+  - Filtered out trips with `passenger_count = 0` (no meaningful pickup) and counts of 7–9 as unrealistic.
+  - Excluded records with missing or zero GPS coordinates.
+  - Filtered out spatial outliers by restricting pickup and dropoff coordinates to NYC bounding box (longitude: -74.03 to -73.75, latitude: 40.63 to 40.85).
+  - Removed `dropoff_datetime` from features to prevent target leakage in a real-time prediction scenario.
+  - Applied log transformation to the `trip_duration` target to address right-skew and stabilize variance.
+  - Removed outliers in log(duration) beyond mean ± 3 standard deviations to further mitigate extreme values.
+
+
+
 
 ## 🎯 **Project Goals**
 - **Build models:** to estimate taxi trip duration in New York City using historical trip data.

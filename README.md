@@ -40,7 +40,7 @@ The goal of this project is to predict the duration of taxi trips in New York Ci
 ## Exploratory Data Analysis (EDA) 🔍
 
 - Data Quality Checks: Assessed null values, coordinate bounds, and distribution of passenger counts.
-- Duration Distribution: Revealed right skew; applied log transformation to stabilize variance and improve model convergence.
+- Duration Distribution: Revealed right skew, applied log transformation to stabilize variance and improve model convergence.
 <p align="center">
   <img src="Figures/right skewed.png" width="45%" />
   <img src="Figures/4. Log of Trip Duration Plot.png" width="45%" />
@@ -51,11 +51,8 @@ The goal of this project is to predict the duration of taxi trips in New York Ci
 ![Avg Duration by Hour](Figures/8.%20Pickup%20Hours.png)
 
 
-## 🎯 **Project Goals**
-- **Build models:** to estimate taxi trip duration in New York City using historical trip data.
-- **Exploratory Data Analysis (EDA):** to uncover patterns and relationships in spatial and temporal features.
-- **Engineer meaningful features:** to enhance model performance, including:
-  - `Haversine distance:` The Haversine distance measures the shortest distance between two points over the Earth's surface as the crow flies, taking the Earth's curvature into account.
+## Feature Engineering ✨
+- `Haversine Distance`: Calculates the great-circle distance (in kilometers) between pickup and dropoff coordinates.
   ```text
   def haversine_distance(lat1, lng1, lat2, lng2):
     lat1, lng1, lat2, lng2 = map(np.radians, (lat1, lng1, lat2, lng2))
@@ -66,15 +63,14 @@ The goal of this project is to predict the duration of taxi trips in New York Ci
     distance = 2 * AVG_EARTH_RADIUS * np.arcsin(np.sqrt(d))
     return distance
   ```
-  - `Manhattan distance:` Also called Taxicab distance or L1 distance, it measures how far two points are if you can only travel horizontally and vertically (like driving through a city grid).
+- `Manhattan Distance`: Approximates grid-based distance using east–west and north–south differentials.
   ```text
   def manhattan_distance(lat1, lng1, lat2, lng2):
     a  = np.abs(newDf['dropoff_longitude'] - newDf['pickup_longitude']) 
     b = np.abs(newDf['dropoff_latitude'] - newDf['pickup_latitude'])
     return a + b
   ```
-
-  - `Bearing direction:` Bearing is the direction or angle from one point to another, usually measured in degrees from North (0°) clockwise (90° East, 180° South, etc.).
+- `Bearing`: Computes the compass direction (0–360°) from pickup to dropoff.
   ```text
   def bearing_direction(lat1, lng1, lat2, lng2):
     AVG_EARTH_RADIUS = 6371
@@ -84,13 +80,13 @@ The goal of this project is to predict the duration of taxi trips in New York Ci
     x = np.cos(lat1) * np.sin(lat2) - np.sin(lat1) * np.cos(lat2) * np.cos(lng_delta_rad)
     return np.degrees(np.arctan2(y, x))
     ```
-- **Extract time-based features:**
-  -  `Hour of day`
-  -  `Day of week`
-  -  `Month`
-  -  `Time of day`
-  -  `Rush hour`
-  -  `Holiday`
+- `Time-based Features`:
+  - Hour of Day: Encodes diurnal traffic patterns.
+  - Day of Week: Differentiates weekday vs. weekend behavior.
+  - Month: Captures seasonal variation over the dataset’s January–June time frame.
+  - Time of Day: Categorical buckets (e.g. Morning, Afternoon, Evening, Night).
+  - Rush Hour Flag: Binary indicator for typical peak commute periods.
+  - Holiday Flag: Marks federal and city-wide holidays based on U.S. holiday calendar.
 
 
 ## 🧹 Data Cleaning

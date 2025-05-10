@@ -2,7 +2,7 @@
 
   <img src="Figures/header.jpeg" width="100%" />
 
-## 📌 **Project Overview**
+## **Project Overview** 📌
 The goal of this project is to predict the duration of taxi trips in New York City using the Kaggle `NYC Taxi Trip Duration Dataset`. Reliable trip-time estimates are essential for ride-hailing services to optimize routing, set dynamic pricing, and provide accurate ETAs to users.
 
 **Objectives:**
@@ -12,7 +12,7 @@ The goal of this project is to predict the duration of taxi trips in New York Ci
 
   - Train and compare machine learning models to achieve the lowest possible prediction error.
 
-## 📂 **Dataset**
+## **Dataset** 📂
 - Source: Kaggle NYC Taxi Trip Duration competition [Download](https://www.kaggle.com/c/nyc-taxi-trip-duration).
 - The training set contains `1.45 million records` with these core fields:
 
@@ -37,6 +37,17 @@ The goal of this project is to predict the duration of taxi trips in New York Ci
   - Removed outliers in log(duration) beyond mean ± 3 standard deviations to further mitigate extreme values.
 
 
+## Exploratory Data Analysis (EDA) 🔍
+
+- Data Quality Checks: Assessed null values, coordinate bounds, and distribution of passenger counts.
+- Duration Distribution: Revealed right skew; applied log transformation to stabilize variance and improve model convergence.
+<p align="center">
+  <img src="Figures/right skewed.png" width="50%" />
+  <img src="Figures/4. Log of Trip Duration Plot.png" width="50%" />
+</p>
+
+- Temporal Trends: Examined trip counts and average durations by hour.
+![Avg Duration by Hour](Figures/8.%20Pickup%20Hours.png)
 
 
 ## 🎯 **Project Goals**

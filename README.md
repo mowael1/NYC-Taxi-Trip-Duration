@@ -87,12 +87,12 @@ The goal of this project is to predict the duration of taxi trips in New York Ci
     return np.degrees(np.arctan2(y, x))
     ```
 - **Time-based Features:**
-  - **Hour of Day:** Encodes diurnal traffic patterns.
-  - **Day of Week:** Differentiates weekday vs. weekend behavior.
-  - **Month:** Captures seasonal variation over the dataset’s January–June time frame.
-  - **Time of Day:** Categorical buckets (e.g. Morning, Afternoon, Evening, Night).
-  - **Rush Hour Flag:** Binary indicator for typical peak commute periods.
-  - **Holiday Flag:** Marks federal and city-wide holidays based on U.S. holiday calendar.
+  - `Hour of Day:` Encodes diurnal traffic patterns.
+  - `Day of Week:` Differentiates weekday vs. weekend behavior.
+  - `Month:` Captures seasonal variation over the dataset’s January–June time frame.
+  - `Time of Day:` Categorical buckets (e.g. Morning, Afternoon, Evening, Night).
+  - `Rush Hour Flag:` Binary indicator for typical peak commute periods.
+  - `Holiday Flag:` Marks federal and city-wide holidays based on U.S. holiday calendar.
 
 
 ## **5. Modeling Methodology 🛠️**

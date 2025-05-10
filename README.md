@@ -42,11 +42,12 @@ The goal of this project is to predict the duration of taxi trips in New York Ci
 - Data Quality Checks: Assessed null values, coordinate bounds, and distribution of passenger counts.
 - Duration Distribution: Revealed right skew; applied log transformation to stabilize variance and improve model convergence.
 <p align="center">
-  <img src="Figures/right skewed.png" width="50%" />
-  <img src="Figures/4. Log of Trip Duration Plot.png" width="50%" />
+  <img src="Figures/right skewed.png" width="45%" />
+  <img src="Figures/4. Log of Trip Duration Plot.png" width="45%" />
 </p>
 
 - Temporal Trends: Examined trip counts and average durations by hour.
+
 ![Avg Duration by Hour](Figures/8.%20Pickup%20Hours.png)
 
 

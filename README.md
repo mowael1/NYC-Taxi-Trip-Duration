@@ -37,7 +37,7 @@ The goal of this project is to predict the duration of taxi trips in New York Ci
   - Removed outliers in log(duration) beyond mean ± 3 standard deviations to further mitigate extreme values.
 
 
-## Exploratory Data Analysis (EDA) 🔍
+## **Exploratory Data Analysis (EDA)** 🔍
 
 - Data Quality Checks: Assessed null values, coordinate bounds, and distribution of passenger counts.
 - Duration Distribution: Revealed right skew, applied log transformation to stabilize variance and improve model convergence.
@@ -51,8 +51,10 @@ The goal of this project is to predict the duration of taxi trips in New York Ci
 ![Avg Duration by Hour](Figures/8.%20Pickup%20Hours.png)
 
 
-## Feature Engineering ✨
-- `Haversine Distance`: Calculates the great-circle distance (in kilometers) between pickup and dropoff coordinates.
+## **Feature Engineering** ✨
+
+- **Haversine Distance:** Calculates the great-circle distance between pickup and dropoff coordinates.
+
   ```text
   def haversine_distance(lat1, lng1, lat2, lng2):
     lat1, lng1, lat2, lng2 = map(np.radians, (lat1, lng1, lat2, lng2))
@@ -63,14 +65,16 @@ The goal of this project is to predict the duration of taxi trips in New York Ci
     distance = 2 * AVG_EARTH_RADIUS * np.arcsin(np.sqrt(d))
     return distance
   ```
-- `Manhattan Distance`: Approximates grid-based distance using east–west and north–south differentials.
+- **Manhattan Distance:** Approximates grid-based distance using east–west and north–south differentials.
+
   ```text
   def manhattan_distance(lat1, lng1, lat2, lng2):
     a  = np.abs(newDf['dropoff_longitude'] - newDf['pickup_longitude']) 
     b = np.abs(newDf['dropoff_latitude'] - newDf['pickup_latitude'])
     return a + b
   ```
-- `Bearing`: Computes the compass direction (0–360°) from pickup to dropoff.
+- **Bearing:** Computes the compass direction (0–360°) from pickup to dropoff.
+
   ```text
   def bearing_direction(lat1, lng1, lat2, lng2):
     AVG_EARTH_RADIUS = 6371
@@ -80,7 +84,7 @@ The goal of this project is to predict the duration of taxi trips in New York Ci
     x = np.cos(lat1) * np.sin(lat2) - np.sin(lat1) * np.cos(lat2) * np.cos(lng_delta_rad)
     return np.degrees(np.arctan2(y, x))
     ```
-- `Time-based Features`:
+- **Time-based Features:**
   - Hour of Day: Encodes diurnal traffic patterns.
   - Day of Week: Differentiates weekday vs. weekend behavior.
   - Month: Captures seasonal variation over the dataset’s January–June time frame.

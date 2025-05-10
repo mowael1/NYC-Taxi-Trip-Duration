@@ -2,7 +2,7 @@
 
   <img src="Figures/header.jpeg" width="100%" />
 
-## **Project Overview** 📌
+## **1. Project Overview** 📌
 The goal of this project is to predict the duration of taxi trips in New York City using the Kaggle `NYC Taxi Trip Duration Dataset`. Reliable trip-time estimates are essential for ride-hailing services to optimize routing, set dynamic pricing, and provide accurate ETAs to users.
 
 **Objectives:**
@@ -12,7 +12,7 @@ The goal of this project is to predict the duration of taxi trips in New York Ci
 
   - Train and compare machine learning models to achieve the lowest possible prediction error.
 
-## **Dataset** 📂
+## **2. Dataset** 📂
 - Source: Kaggle NYC Taxi Trip Duration competition [Download](https://www.kaggle.com/c/nyc-taxi-trip-duration).
 - The training set contains `1.45 million records` with these core fields:
 
@@ -37,21 +37,23 @@ The goal of this project is to predict the duration of taxi trips in New York Ci
   - Removed outliers in log(duration) beyond mean ± 3 standard deviations to further mitigate extreme values.
 
 
-## **Exploratory Data Analysis (EDA)** 🔍
+## **3. Exploratory Data Analysis (EDA)** 🔍
 
-- Data Quality Checks: Assessed null values, coordinate bounds, and distribution of passenger counts.
-- Duration Distribution: Revealed right skew, applied log transformation to stabilize variance and improve model convergence.
+- **Data Quality Checks:** Assessed null values, coordinate bounds, and distribution of passenger counts.
+
+- **Duration Distribution:** Revealed right skew, applied log transformation to stabilize variance and improve model convergence.
+
 <p align="center">
   <img src="Figures/right skewed.png" width="45%" />
   <img src="Figures/4. Log of Trip Duration Plot.png" width="45%" />
 </p>
 
-- Temporal Trends: Examined trip counts and average durations by hour.
+- **Temporal Trends:** Examined trip counts and average durations by hour.
 
 ![Avg Duration by Hour](Figures/8.%20Pickup%20Hours.png)
 
 
-## **Feature Engineering** ✨
+## **4. Feature Engineering** ✨
 
 - **Haversine Distance:** Calculates the great-circle distance between pickup and dropoff coordinates.
 
@@ -85,52 +87,24 @@ The goal of this project is to predict the duration of taxi trips in New York Ci
     return np.degrees(np.arctan2(y, x))
     ```
 - **Time-based Features:**
-  - Hour of Day: Encodes diurnal traffic patterns.
-  - Day of Week: Differentiates weekday vs. weekend behavior.
-  - Month: Captures seasonal variation over the dataset’s January–June time frame.
-  - Time of Day: Categorical buckets (e.g. Morning, Afternoon, Evening, Night).
-  - Rush Hour Flag: Binary indicator for typical peak commute periods.
-  - Holiday Flag: Marks federal and city-wide holidays based on U.S. holiday calendar.
+  - **Hour of Day:** Encodes diurnal traffic patterns.
+  - **Day of Week:** Differentiates weekday vs. weekend behavior.
+  - **Month:** Captures seasonal variation over the dataset’s January–June time frame.
+  - **Time of Day:** Categorical buckets (e.g. Morning, Afternoon, Evening, Night).
+  - **Rush Hour Flag:** Binary indicator for typical peak commute periods.
+  - **Holiday Flag:** Marks federal and city-wide holidays based on U.S. holiday calendar.
 
 
-## 🧹 Data Cleaning
-To ensure high-quality input for model training, the dataset was carefully cleaned and prepared:
+## **5. Modeling Methodology 🛠️**
 
-- **Skewness Correction:**
-  - Observed that the `trip_duration` feature was right-skewed, with a long tail of very long trips.
+- **Data Split:** Partitioned the preprocessed data into 75% train, 12.5% validation, and 12.5% test sets to rigorously tune and evaluate model performance.
 
-  - Applied a logarithmic transformation (log1p) to trip_duration to normalize its distribution, improving model performance.
+- **Preprocessing Pipeline:** Applied log-transformation to trip durations; standardized continuous features; one-hot encoded categorical variables using `pandas.get_dummies` to prepare features for model ingestion.
 
-  ![NYC Taxi Banner](Figures/4.%20Log%20of%20Trip%20Duration%20Plot.png)
+- **Baseline Model:** Employed Ridge Regression as a simple linear baseline on log(duration).
 
-- **Statistical Filtering:**
+- **Additional Models:** Trained `Decision Tree Regressor` and `Random Forest Regressor` to capture non-linear relationships.
 
-  - For key numerical features, outliers were further removed by applying mean ± 3 × standard deviation (STD) thresholds, keeping only values within a statistically reasonable range.
+- **Advanced Model:** Tuned and evaluated XGBoost Regressor with hyperparameter optimization via RandomizedSearchCV and cross-validation, achieving the best validation performance.
 
-  ```text
-  mean = np.mean(newDf["log_trip_duraion"])
-  std = np.std(newDf["log_trip_duraion"])
-  newDf = newDf[newDf['log_trip_duraion'] <= mean + 3*std]
-  newDf = newDf[newDf['log_trip_duraion'] >= mean - 3*std]
-  ```
-  ![NYC Taxi Banner](Figures/5.%20Remove%20outliers.png)
-
-- **Outlier Removal:**
-
-  - Removed records with extreme values in pickup and dropoff latitude/longitude coordinates, which likely represented GPS errors.
-
-  - Detected and eliminated trips with unrealistic distances or durations (e.g., extremely long or short trips).
-<p align="center">
-  <img src="Figures/6.%20Pickup%20Location.png" width="45%" />
-  <img src="Figures/7.%20Dropoff%20Locations.png" width="45%" />
-</p>
-
----
-
-## 🧠 **Model Development**
-Tried multiple regression algorithms:
-
-  - Ridge (baseline)
-  - Random Forest Regressor
-  - Decision Tree Regressor
-  - XGBoost Regressor (best performance)
+- **Evaluation Metrics:** Used R² on log-transformed trip durations as the primary error metric

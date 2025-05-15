@@ -13,8 +13,8 @@ The goal of this project is to predict the duration of taxi trips in New York Ci
   - Train and compare machine learning models to achieve the lowest possible prediction error.
 
 ## **2. Dataset** 📂
-- Source: Kaggle NYC Taxi Trip Duration competition [Download](https://www.kaggle.com/c/nyc-taxi-trip-duration).
-- The training set contains `1.45 million records` with these core fields:
+- **Source:** [Kaggle NYC Taxi Trip Duration competition](https://www.kaggle.com/c/nyc-taxi-trip-duration).
+- The dataset contains `1.45 million records` with these core fields:
 
   - `id`: a unique identifier for each trip.
   - `vendor_id`: a code indicating the provider associated with the trip record.
